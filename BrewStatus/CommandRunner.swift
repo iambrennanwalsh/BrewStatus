@@ -1,83 +1,66 @@
 //
 //  CommandRunner.swift
-//  BrewServices
+//  BrewStatus
 //
-//  Created by Brennan Walsh on 7/23/20.
-//  Copyright © 2020 Brennan Walsh. All rights reserved.
+//  Created by Brennan Walsh
+//  mail@brennanwal.sh
+//  @iambrennanwalsh
 //
 
 import Cocoa
 
 class CommandRunner {
     
-    let brewExecutableKey = "brewExecutable"
-    
-    init() {
-        UserDefaults.standard.register(defaults: [
-            brewExecutableKey: "/usr/local/bin/brew"
-        ])
+  let brew = "/usr/local/bin/brew"
+  
+  // Updates a service.
+  func run(args: [String]) -> [Service] {
+    let task = Process()
+    task.launchPath = brew
+    task.arguments = args
+    task.launch()
+    task.waitUntilExit()
+    if task.terminationStatus != 0 {
+      let alert = NSAlert.init()
+      alert.alertStyle = .critical
+      alert.messageText = "Could not \(args[1]) \(args[2])"
+      alert.informativeText = "You will need to manually resolve the issue."
+      alert.runModal()
+      return []
     }
-    
-    func controlService(_ name:String, state:String) -> [Service] {
-        let task = Process()
-        task.launchPath = self.brewExecutable()
-        task.arguments = ["services", state, name]
-
-        task.launch()
-        task.waitUntilExit()
-
-        if task.terminationStatus != 0 {
-            let alert = NSAlert.init()
-            alert.alertStyle = .critical
-            alert.messageText = "Could not \(state) \(name)"
-            alert.informativeText = "You will need to manually resolve the issue."
-            alert.runModal()
-        }
-        return self.serviceStates()
-    }
-    
-    func serviceStates() -> [Service] {
-        let launchPath = self.brewExecutable()
-        if !FileManager.default.isExecutableFile(atPath: launchPath) {
-            return []
-        }
-        let task = Process()
-        let outpipe = Pipe()
-        task.launchPath = launchPath
-        task.arguments = ["services", "list"]
-        task.standardOutput = outpipe
-
-        task.launch()
-        let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
-        task.waitUntilExit()
-
-        if task.terminationStatus != 0 {
-            return []
-        }
-
-        if var string = String(data: outdata, encoding: String.Encoding.utf8) {
-            string = string.trimmingCharacters(in: CharacterSet.newlines)
-            return parseServiceList(string)
-        }
-
+    return getServices()
+  }
+  
+  // Runs brew services list.
+  func getServices() -> [Service] {
+    let launchPath = brew
+    if FileManager.default.isExecutableFile(atPath: launchPath) {
+      let task = Process()
+      let outpipe = Pipe()
+      task.launchPath = launchPath
+      task.arguments = ["services", "list"]
+      task.standardOutput = outpipe
+      task.launch()
+      let outdata = outpipe.fileHandleForReading.readDataToEndOfFile()
+      task.waitUntilExit()
+      if task.terminationStatus != 0 {
         return []
-    }
-
-    func parseServiceList(_ raw: String) -> [Service] {
-        let rawServices = raw.components(separatedBy: "\n")
+      }
+      if var string = String(data: outdata, encoding: String.Encoding.utf8) {
+        string = string.trimmingCharacters(in: CharacterSet.newlines)
+        let rawServices = string.components(separatedBy: "\n")
         return rawServices[1..<rawServices.count].map(parseService)
+      }
     }
+    return []
+  }
 
-    func parseService(_ raw:String) -> Service {
-        let parts = raw.components(separatedBy: " ").filter() { $0 != "" }
-        return Service(
-            name: parts[0],
-            state: parts.count >= 2 ? parts[1] : "unknown",
-            user: parts.count >= 3 ? parts[2] : ""
-        )
-    }
-    
-    func brewExecutable() -> String {
-        return UserDefaults.standard.string(forKey: brewExecutableKey)!
-    }
+  // Parses the output of "brew services list" and returns an array of Services.
+  func parseService(_ raw:String) -> Service {
+    let parts = raw.components(separatedBy: " ").filter() { $0 != "" }
+    return Service(
+      name: parts[0],
+      state: parts.count >= 2 && parts[1] == "started" ? Service.Status.running : parts[1] == "stopped" ? Service.Status.stopped : Service.Status.stopped
+    )
+  }
 }

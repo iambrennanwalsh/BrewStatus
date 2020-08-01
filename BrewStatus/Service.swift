@@ -1,8 +1,20 @@
+//
+//  Service.swift
+//  BrewStatus
+//
+//  Created by Brennan Walsh
+//  mail@brennanwal.sh
+//  @iambrennanwalsh
+//
 
 import Foundation
 
 struct Service {
-    var name = ""
-    var state = "unknown"
-    var user = ""
+  let name: String
+  var state: Status?
+  
+  enum Status{
+    case running
+    case stopped
+  }
 }
