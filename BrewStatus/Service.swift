@@ -17,4 +17,8 @@ struct Service {
     case running
     case stopped
   }
+  
+  mutating func toggleState() {
+    state = state == .running ? .stopped : .running
+  }
 }

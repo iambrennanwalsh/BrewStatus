@@ -7,7 +7,7 @@
 //  @iambrennanwalsh
 //
 
-import Cocoa
+import AppKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
 
@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       button.action = #selector(initServiceMenu(_:))
     }
   }
-    
+  
   @objc func initServiceMenu(_ sender: NSStatusBarButton) {
     statusItem!.menu = serviceMenu
     statusItem!.button!.performClick(self)

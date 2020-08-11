@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		264527D324E1F28B00AAD6D9 /* ServiceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264527D224E1F28B00AAD6D9 /* ServiceUtils.swift */; };
 		267A03D524D5217E001B46D5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 267A03D424D5217E001B46D5 /* README.md */; };
 		26E3E36824CA767D00BF1D04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3E36724CA767D00BF1D04 /* AppDelegate.swift */; };
 		26E3E36C24CA768C00BF1D04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26E3E36B24CA768C00BF1D04 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		264527D224E1F28B00AAD6D9 /* ServiceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceUtils.swift; sourceTree = "<group>"; };
 		267A03D424D5217E001B46D5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		26E3E36424CA767D00BF1D04 /* BrewStatus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrewStatus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26E3E36724CA767D00BF1D04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -27,16 +29,6 @@
 		26FDF86D24CAA18E00F72560 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		26FDF86F24CAAAC000F72560 /* CommandRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandRunner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		26E3E36124CA767D00BF1D04 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		26E3E35B24CA767D00BF1D04 = {
@@ -62,6 +54,7 @@
 				26E3E38024CA7F0500BF1D04 /* main.swift */,
 				26FDF86B24CAA14B00F72560 /* ServiceMenu.swift */,
 				26FDF86F24CAAAC000F72560 /* CommandRunner.swift */,
+				264527D224E1F28B00AAD6D9 /* ServiceUtils.swift */,
 				26FDF86D24CAA18E00F72560 /* Service.swift */,
 				26E3E36724CA767D00BF1D04 /* AppDelegate.swift */,
 				26E3E36B24CA768C00BF1D04 /* Assets.xcassets */,
@@ -78,7 +71,6 @@
 			buildConfigurationList = 26E3E37724CA768C00BF1D04 /* Build configuration list for PBXNativeTarget "BrewStatus" */;
 			buildPhases = (
 				26E3E36024CA767D00BF1D04 /* Sources */,
-				26E3E36124CA767D00BF1D04 /* Frameworks */,
 				26E3E36224CA767D00BF1D04 /* Resources */,
 			);
 			buildRules = (
@@ -141,6 +133,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26E3E38124CA7F0500BF1D04 /* main.swift in Sources */,
+				264527D324E1F28B00AAD6D9 /* ServiceUtils.swift in Sources */,
 				26FDF87024CAAAC000F72560 /* CommandRunner.swift in Sources */,
 				26FDF86E24CAA18E00F72560 /* Service.swift in Sources */,
 				26FDF86C24CAA14B00F72560 /* ServiceMenu.swift in Sources */,
@@ -269,9 +262,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BrewStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -281,6 +276,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = iambrennanwalsh.BrewStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -290,9 +286,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = BrewStatus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -302,6 +300,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = iambrennanwalsh.BrewStatus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
